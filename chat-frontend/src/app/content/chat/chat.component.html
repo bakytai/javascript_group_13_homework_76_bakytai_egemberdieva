@@ -1,0 +1,27 @@
+<mat-toolbar>
+  <div fxLayout="row">
+    <h1><a mat-button>Chat</a></h1>
+  </div>
+</mat-toolbar>
+
+<div fxLayout="row wrap" fxLayoutGap="16px grid">
+  <div
+    fxFlex.xs="100%"
+    fxFlex.sm="50%"
+    fxFlex.lt-lg="33%"
+    fxFlex="25%"
+    *ngFor="let message of messages"
+  >
+    <mat-card>
+      <mat-card-title>{{ message.author }}</mat-card-title>
+      <mat-card-content>
+        <p>Date: <strong>{{ message.dateTime }}</strong></p>
+        <p>{{ message.message }}</p>
+      </mat-card-content>
+      <mat-divider inset></mat-divider>
+    </mat-card>
+  </div>
+
+
+  <app-new-message></app-new-message>
+</div>

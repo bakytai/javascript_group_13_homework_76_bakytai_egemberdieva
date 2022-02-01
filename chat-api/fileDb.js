@@ -21,7 +21,7 @@ module.exports  = {
         const lastDate = data[data.length - 1].dateTime;
         if (date < lastDate) {
             return data.slice(date);
-        } 
+        }
     },
 
     addMessage(message) {

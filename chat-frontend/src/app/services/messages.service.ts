@@ -36,7 +36,23 @@ export class MessagesService {
   }
 
   getInterval(lastDate: string) {
-    this.interval = setInterval()
+    this.interval = setInterval(() => {
+      this.http.get<Message[]>(environment.apiUrl + `/messages?datetime=${lastDate}`)
+        .pipe(map(result => {
+          if (result === null) {
+            return [];
+          }
+          return result.map(messageData => {
+            return new Message(messageData.id, messageData.message, messageData.author, messageData.dateTime);
+          });
+        }))
+        .subscribe(messages => {
+          this.messages = messages;
+          this.messagesChange.next(this.messages.slice());
+          this.messagesFetching.next(false);
+        });
+
+    }, 4000)
   }
 
   createMessage(message: MessageData) {

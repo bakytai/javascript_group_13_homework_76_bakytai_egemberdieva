@@ -3,12 +3,18 @@ const db = require('../fileDb');
 const router = express.Router();
 
 router.get('/',(req,res) => {
+    const date = new Date(req.query.dateTime);
+    if (date) {
+        if (isNaN(date.getDate())) {
+            return res.send({message: "Date is wrong"});
+        } else {
+            const messageFromDate =  db.getMessageFromDate(date);
+            return  res.send(messageFromDate);
+        }
+    }
+
     const messages = db.getMessages();
     return  res.send(messages);
-});
-
-router.get('/:dateTime',(req,res) => {
-
 });
 
 router.post('/',async (req,res, next) => {

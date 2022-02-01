@@ -13,6 +13,7 @@ export class MessagesService {
   messages!: Message[] | null;
   messagesChange = new Subject<Message[]>();
   messagesFetching = new Subject<boolean>();
+  interval!: number;
 
   constructor(private http: HttpClient) { }
 
@@ -34,8 +35,15 @@ export class MessagesService {
       });
   }
 
+  getInterval(lastDate: string) {
+    this.interval = setInterval()
+  }
+
   createMessage(message: MessageData) {
     return this.http.post(environment.apiUrl + '/messages', message);
   };
 
+  stop(){
+    clearInterval(this.interval);
+  }
 }

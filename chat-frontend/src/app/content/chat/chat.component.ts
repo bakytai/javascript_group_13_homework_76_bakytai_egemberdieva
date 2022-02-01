@@ -19,6 +19,9 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.messagesSubscription = this.messageService.messagesChange.subscribe((messages: Message[]) => {
       this.messages = messages;
+      const date = this.messages[this.messages.length - 1];
+      console.log(date.dateTime);
+      this.messageService.getInterval(date.dateTime);
     });
     this.isFetchingSubscription = this.messageService.messagesFetching.subscribe((isFetching: boolean) => {
       this.isFetching = isFetching;

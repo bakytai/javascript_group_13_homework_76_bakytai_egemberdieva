@@ -17,8 +17,11 @@ module.exports  = {
         return data.slice(data.length - 30);
     },
 
-    getMessageFromDate() {
-
+    getMessageFromDate(date) {
+        const lastDate = data[data.length - 1].dateTime;
+        if (date < lastDate) {
+            return data.slice(date);
+        } 
     },
 
     addMessage(message) {

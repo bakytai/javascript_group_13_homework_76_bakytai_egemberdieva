@@ -17,12 +17,14 @@
         ></textarea>
       </mat-form-field>
       <div>
-        <button
+        <button *ngIf="!spinner"
           type="submit"
           mat-raised-button
           color="primary"
           [disabled]="f.invalid"
         >POST</button>
+        <mat-spinner *ngIf="spinner">
+        </mat-spinner>
       </div>
     </form>
   </mat-card-content>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../../model/message.model';
 import { MessagesService } from '../../services/messages.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat',
@@ -9,14 +10,21 @@ import { MessagesService } from '../../services/messages.service';
 })
 export class ChatComponent implements OnInit {
   messages: Message[] = [];
+  messagesSubscription!: Subscription;
+  isFetchingSubscription!: Subscription;
+  isFetching = false;
 
   constructor(private messageService: MessagesService) { }
 
   ngOnInit(): void {
-    this.messageService.getMessages().subscribe(messages => {
+    this.messagesSubscription = this.messageService.messagesChange.subscribe((messages: Message[]) => {
       this.messages = messages;
-      console.log(this.messages);
-    })
+    });
+    this.isFetchingSubscription = this.messageService.messagesFetching.subscribe((isFetching: boolean) => {
+      this.isFetching = isFetching;
+    });
+
+    this.messageService.getMessages();
   }
 
 }

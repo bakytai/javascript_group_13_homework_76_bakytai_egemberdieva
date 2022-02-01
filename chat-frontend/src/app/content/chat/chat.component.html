@@ -4,7 +4,10 @@
   </div>
 </mat-toolbar>
 
-<div fxLayout="row wrap" fxLayoutGap="16px grid">
+<div fxLayout="row" fxLayoutGap="20px grid">
+<div fxLayout="row wrap" fxLayoutGap="16px grid" fxFlex="80%">
+  <mat-spinner *ngIf="isFetching">
+  </mat-spinner>
   <div
     fxFlex.xs="100%"
     fxFlex.sm="50%"
@@ -21,7 +24,6 @@
       <mat-divider inset></mat-divider>
     </mat-card>
   </div>
-
-
-  <app-new-message></app-new-message>
+</div>
+<app-new-message></app-new-message>
 </div>
